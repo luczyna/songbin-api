@@ -1,5 +1,5 @@
 # from https://github.com/pluralsight/guides/blob/master/published/ruby-ruby-on-rails/token-based-authentication-with-ruby-on-rails-5-api/article.md
-class AuthenicateUser
+class AuthenticateUser
   prepend SimpleCommand
 
   def initialize(email, password)
@@ -8,7 +8,7 @@ class AuthenicateUser
   end
 
   def call
-    JsonWebToken.encode(user_id: user.id) if user
+    JsonWebToken.encode({user_id: user.id}) if user
   end
 
   private
@@ -17,7 +17,8 @@ class AuthenicateUser
 
   def user
     user = User.find_by_email(email)
-    return user if user && user.authenticate(password)
+    # return user if user && user.authenticate(password)
+    return user if user && user.try(:authenticate, password)
 
     errors.add :user_authentication, 'invalid credentials'
     nil
