@@ -13,7 +13,7 @@ rails server
 
 ## Documentation
 
-Looking for documentation of the API? Take a look through the [`./docs`](./docs) folder.
+Looking for documentation of the API? Take a look through the [`./docs`](/docs/index.md) folder.
 
 ## Testing
 
