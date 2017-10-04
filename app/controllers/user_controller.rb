@@ -19,8 +19,7 @@ class UserController < ApplicationController
       jwt = provide_new_token(user)
       render json: { auth_token: jwt }, status: :created
     else
-      # TODO what status to return? 400?
-      render json: { error: user.errors }
+      render json: { error: user.errors }, status: :bad_request
     end
   end
 
@@ -29,10 +28,9 @@ class UserController < ApplicationController
     user = User.find(@current_user.id)
 
     if user.destroy
-      render json: { message: 'Successfully deleted the user' }
+      render json: { message: 'Successfully deleted the user' }, status: :ok
     else
-      # TODO is this correct?
-      render json: { error: user.errors }
+      render json: { error: user.errors }, status: :bad_request
     end
   end
 
@@ -48,6 +46,7 @@ class UserController < ApplicationController
     # Only notice that this works with a save (due to has_secure_password)
     elsif user_params[:password].present?
       user.password = user_params[:password]
+
       if user.save
         render json: { ok: true }, status: :ok
       else
@@ -68,7 +67,6 @@ class UserController < ApplicationController
     AuthenticateUser.call(user.email, user.password).result
   end
 
-  # TODO how to use strong_parameters in create and update?
   def user_params
     params.require(:user).permit(:name, :password, :email)
   end

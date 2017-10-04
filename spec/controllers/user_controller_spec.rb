@@ -65,7 +65,7 @@ RSpec.describe UserController, type: :request do
       # post "/authenticate", params: { email: user.email, password: user.password}
       token = JsonWebToken.encode({user_id: user.id})
       delete "/user", headers: { Authorization: token }
-      expect(User.all.count).to equal(user_count - 1)
+      expect(User.all.count).to eq(user_count - 1)
     end
 
     it "fails when token is incorrect" do
@@ -76,7 +76,7 @@ RSpec.describe UserController, type: :request do
 
       token = "wrong"
       delete "/user", headers: { Authorization: token }
-      expect(User.all.count).to equal(user_count)
+      expect(User.all.count).to eq(user_count)
     end
 
     it "fails when token belongs to a user that doesn't exist" do
@@ -116,7 +116,15 @@ RSpec.describe UserController, type: :request do
       header = { Authorization: JsonWebToken.encode({user_id: user.id}) }
 
       put "/user", headers: header, params: user_details
-      expect(response.status).to equal(200)
+      expect(response.status).to eq(200)
+    end
+
+    it "fails when changing the password to something too short" do
+      user_details = { user: { "password" => "short" } }
+      header = { Authorization: JsonWebToken.encode({user_id: user.id}) }
+
+      put "/user", headers: header, params: user_details
+      expect(response.status).to eq(400)
     end
 
     it "works when changing the name" do
@@ -124,7 +132,7 @@ RSpec.describe UserController, type: :request do
       header = { Authorization: JsonWebToken.encode({user_id: user.id}) }
 
       put "/user", headers: header, params: user_details
-      expect(response.status).to equal(200)
+      expect(response.status).to eq(200)
     end
 
     it "works when changing the email" do
@@ -132,7 +140,7 @@ RSpec.describe UserController, type: :request do
       header = { Authorization: JsonWebToken.encode({user_id: user.id}) }
 
       put "/user", headers: header, params: user_details
-      expect(response.status).to equal(200)
+      expect(response.status).to eq(200)
     end
 
     it "works when changing the name and email together" do
@@ -140,7 +148,7 @@ RSpec.describe UserController, type: :request do
       header = { Authorization: JsonWebToken.encode({user_id: user.id}) }
 
       put "/user", headers: header, params: user_details
-      expect(response.status).to equal(200)
+      expect(response.status).to eq(200)
     end
 
     it "fails when trying to change the name, email, and password together" do
@@ -148,7 +156,7 @@ RSpec.describe UserController, type: :request do
       header = { Authorization: JsonWebToken.encode({user_id: user.id}) }
 
       put "/user", headers: header, params: user_details
-      expect(response.status).to equal(400)
+      expect(response.status).to eq(400)
     end
   end
 end

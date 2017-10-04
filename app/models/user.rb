@@ -3,5 +3,5 @@ class User < ApplicationRecord
 
   validates :email, :name, presence: true
   validates :email, uniqueness: true
-  validates_length_of :password, minimum: 8, on: :create
+  validates_length_of :password, minimum: 8, allow_blank: true
 end

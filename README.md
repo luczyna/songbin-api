@@ -1,24 +1,20 @@
-# README
+# POC Songbin API
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+This is a proof-of-concept API built with Ruby on Rails to power the app Songbin.
 
-Things you may want to cover:
+## Getting started
 
-* Ruby version
+Ensure you have at least Rails 5.1, and Ruby 2.4. After cloning the repo to your machine, follow the standard instructions to get things running:
 
-* System dependencies
+```
+bundle install
+rails server
+```
 
-* Configuration
+## Documentation
 
-* Database creation
+Looking for documentation of the API? Take a look through the [`./docs`](./docs) folder.
 
-* Database initialization
+## Testing
 
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+Run rspec tests: `bundle exec rspec`

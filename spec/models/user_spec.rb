@@ -35,15 +35,36 @@ RSpec.describe User, type: :model do
     end
   end
 
-  # TODO create and test logging in
-  # context "logging in" do
-  # end
+  context "updating user info" do
+    let(:user) {  build(:user) }
 
-  # TODO create and test updating user info
-  # context "updating user info" do
-  # end
+    it "succeeds when changing a name" do
+      user.update(name: 'bana')
+      expect(user.valid?).to be true
+    end
 
-  # TODO create and test deleting
-  # context "deleting" do
-  # end
+    it "succeeds when changing an email" do
+      user.update(email: 'bana@haha.com')
+      expect(user.valid?).to be true
+    end
+
+    it "succeeds when updating the password" do
+      user.password = 'banarama'
+      expect(user.valid?).to be true
+    end
+
+    it "fails when updating with too short a password" do
+      user.update(password: 'short')
+      expect(user.valid?).to be false
+    end
+  end
+
+  context "deleting" do
+    let(:user) { build(:user) }
+
+    it "succeeds" do
+      user.destroy
+      expect(user.destroyed?).to be true
+    end
+  end
 end
