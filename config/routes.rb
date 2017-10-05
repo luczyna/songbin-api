@@ -8,4 +8,7 @@ Rails.application.routes.draw do
 
   # login
   post 'authenticate', to: 'authentication#authenticate'
+
+  # songs
+  resources :songs
 end
