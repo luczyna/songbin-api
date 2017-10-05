@@ -60,11 +60,33 @@ RSpec.describe User, type: :model do
   end
 
   context "deleting" do
-    let(:user) { build(:user) }
+    # NOTE using the let() notation for defining a common variable here
+    # such as:
+    #  let(:user) { create(:user, :with_songs) }
+    # did not allow us to count all the songs reliably
+    # so in this context we created the variables in each test block
 
     it "succeeds" do
+      user = create(:user, :with_songs)
       user.destroy
       expect(user.destroyed?).to be true
+    end
+
+    it "removes all associated songs" do
+      #  1 User, with 4 songs
+      user = create(:user, :with_songs)
+
+      # Now 2 Users, 5 songs total
+      leftover_song = create(:song, user: create(:user_two))
+
+      all_song_count = Song.count
+      expect(all_song_count).to be > 0
+
+      song_count = Song.where(user: user).count
+      expect(song_count).to be > 0
+
+      user.destroy
+      expect(Song.all.count).to eq(all_song_count - song_count)
     end
   end
 end
