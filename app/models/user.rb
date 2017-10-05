@@ -1,4 +1,5 @@
 class User < ApplicationRecord
+  has_many :songs, dependent: :destroy
   has_secure_password
 
   validates :email, :name, presence: true
