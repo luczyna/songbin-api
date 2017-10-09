@@ -10,5 +10,5 @@ Rails.application.routes.draw do
   post 'authenticate', to: 'authentication#authenticate'
 
   # songs
-  resources :songs
+  resources :song, path: 'songs'
 end

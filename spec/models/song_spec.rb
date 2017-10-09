@@ -3,8 +3,7 @@ require 'rails_helper'
 RSpec.describe Song, type: :model do
   context "creation" do
     let(:user) { build(:user) }
-    # let(:user_two) { build(:user, name: 'bana', email: 'bana@haha.com') }
-    let(:user_two) { build(:user_two) }
+    let(:user_two) { build(:user, name: "bana", email: "bana@haha.com") }
     let(:good_url) { "https://www.youtube.com/watch?v=AcQnxa3rT4g" }
     let(:bad_url) { "console.log" }
 

@@ -1,7 +1,14 @@
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the rails db:seed command (or created alongside the database with db:setup).
-#
-# Examples:
-#
-#   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
-#   Character.create(name: 'Luke', movie: movies.first)
+require 'creator_helper'
+
+# create users
+lana = User.create(name: "Lana", email: "lana@haha.com", password: "poipoipoi")
+bana = User.create(name: "Bana", email: "bana@haha.com", password: "poipoipoi")
+fana = User.create(name: "Fana", email: "fana@haha.com", password: "poipoipoi")
+# no song ana = (n)ana
+nana = User.create(name: "Nana", email: "nana@haha.com", password: "poipoipoi")
+
+# create songs for those users
+# TODO super quick implementation, how can we diversify this?
+CreatorHelper.populate_songs(lana)
+CreatorHelper.populate_songs(bana)
+CreatorHelper.populate_songs(fana)

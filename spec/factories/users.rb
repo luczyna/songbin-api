@@ -15,11 +15,4 @@ FactoryGirl.define do
       end
     end
   end
-
-  factory :user_two, class: "User" do
-    name "bana"
-    email "bana@haha.com"
-    password "poipoipoi"
-    password_digest "MyString"
-  end
 end
