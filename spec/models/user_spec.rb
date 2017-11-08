@@ -60,11 +60,26 @@ RSpec.describe User, type: :model do
   end
 
   context "deleting" do
-    let(:user) { build(:user) }
+     let!(:user) { create(:user, :with_songs) }
 
     it "succeeds" do
       user.destroy
       expect(user.destroyed?).to be true
+    end
+
+    it "removes all associated songs" do
+      # 1 User, with 4 songs already created
+      # Now 2 Users, 5 songs total
+      leftover_song = create(:song, user: create(:user, email: "bana@haha.com"))
+
+      all_song_count = Song.count
+      expect(all_song_count).to be > 0
+
+      song_count = Song.where(user: user).count
+      expect(song_count).to be > 0
+
+      user.destroy
+      expect(Song.all.count).to eq(all_song_count - song_count)
     end
   end
 end

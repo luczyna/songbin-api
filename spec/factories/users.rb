@@ -4,5 +4,15 @@ FactoryGirl.define do
     email "lana@haha.com"
     password "poipoipoi"
     password_digest "MyString"
+
+    trait :with_songs do
+      transient do
+        song_count 4
+      end
+
+      after(:create) do |user, evaluator|
+        create_list(:song, evaluator.song_count, user: user)
+      end
+    end
   end
 end
